@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies (server)
+        run: npm ci
+
+      - name: Install biome linux-x64 (server)
+        run: npm install --save-dev @biomejs/cli-linux-x64 || true
+
+      - name: Lint (server)
+        run: npm run lint:ci
+
+      - name: Run tests (server)
+        run: npm run test:ci
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies (frontend)
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@latest
+
+      - name: Run tests (frontend)
+        working-directory: ./frontend
+        run: npm run test:ci
+        env:
+          CHROME_BIN: /usr/bin/google-chrome-stable

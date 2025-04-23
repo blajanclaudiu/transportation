@@ -1,0 +1,70 @@
+<div class="bg-card flex h-full flex-auto flex-col dark:bg-default">
+    <!-- Header -->
+    <div
+        class="flex h-18 flex-0 items-center border-b bg-gray-50 px-4 dark:bg-transparent"
+    >
+        <button mat-icon-button (click)="drawer.close()">
+            <mat-icon [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+        <div class="ml-2 text-lg font-medium">Chat Settings</div>
+    </div>
+
+    <div class="overflow-y-auto" [class.opacity-50]="loading">
+        <div class="px-7 py-6">
+            <div class="mt-4 space-y-4">
+                <div class="mb-2 text-lg font-medium">Message Generation Settings</div>
+                
+                <div class="space-y-1">
+                    <div>
+                        <label class="text-secondary font-medium">Temperature</label>
+                        <span class="pl-2 font-bold text-secondary">{{settings.temperature}}</span>
+                        <mat-slider [min]="0" [max]="2" [step]="0.1">
+                            <input matSliderThumb [(ngModel)]="settings.temperature" (change)="onSettingChange()">
+                        </mat-slider>
+                    </div>
+
+                    <div>
+                        <label class="text-secondary font-medium">Top P</label>
+                        <span class="pl-2 font-bold text-secondary">{{settings.topP}}</span>
+                        <mat-slider [min]="0" [max]="1" [step]="0.05">
+                            <input matSliderThumb [(ngModel)]="settings.topP" (change)="onSettingChange()">
+                        </mat-slider>
+                    </div>
+
+                    <div>
+                        <label class="text-secondary font-medium">Top K</label>
+                        <span class="pl-2 font-bold text-secondary">{{settings.topK}}</span>
+                        <mat-slider [min]="1" [max]="60" [step]="1">
+                            <input matSliderThumb [(ngModel)]="settings.topK" (change)="onSettingChange()">
+                        </mat-slider>
+                    </div>
+
+                    <div>
+                        <label class="text-secondary font-medium">Presence Penalty</label>
+                        <span class="pl-2 font-bold text-secondary">{{settings.presencePenalty}}</span>
+                        <mat-slider [min]="0" [max]="2" [step]="0.1">
+                            <input matSliderThumb [(ngModel)]="settings.presencePenalty" (change)="onSettingChange()">
+                        </mat-slider>
+                    </div>
+
+                    <div>
+                        <label class="text-secondary font-medium">Frequency Penalty</label>
+                        <span class="pl-2 font-bold text-secondary">{{settings.frequencyPenalty}}</span>
+                        <mat-slider [min]="0" [max]="2" [step]="0.1">
+                            <input matSliderThumb [(ngModel)]="settings.frequencyPenalty" (change)="onSettingChange()">
+                        </mat-slider>
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngIf="error" class="mt-4 p-3 bg-red-100 text-red-700 rounded">
+                {{ error }}
+            </div>
+            
+            <div *ngIf="loading" class="mt-4 flex items-center justify-center">
+                <mat-spinner diameter="24"></mat-spinner>
+                <span class="ml-2">Saving settings...</span>
+            </div>
+        </div>
+    </div>
+</div>

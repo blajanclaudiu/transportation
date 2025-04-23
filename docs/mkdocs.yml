@@ -1,0 +1,63 @@
+site_name: TypedAI
+site_url: https://typedai.dev/
+theme:
+  name: material
+  logo: assets/tai.png
+  palette:
+    primary: black
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - search.suggest
+    - navigation.path
+    - navigation.sections
+    - navigation.expand
+
+extra_css:
+  - assets/styles.css
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+repo_url: https://github.com/trafficguard/typedai
+repo_name: trafficguard/typedai
+
+nav:
+  - index.md
+  - 'Getting stared':
+      - 'Setup': setup.md
+      - 'CLI': cli.md
+      - 'Environment variables': environment-variables.md
+      - 'Observability / Tracing': observability.md
+      - 'LLMs': llms.md
+  - Agents:
+    - agent-concepts.md
+    - autonomous-agents.md
+    - software-engineer.md
+    - code-review.md
+    - examples.md
+  - Function Calling:
+    - functions.md
+    - integrations.md
+  - Chat:
+    - chat.md
+    - chatbot.md
+  - roadmap.md
+  - Blog:
+      - blog/index.md
+
+plugins:
+  - glightbox
+  - search
+  - blog

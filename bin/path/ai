@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Shortcut to running `npm run <script> <arg>` from the TypedAI installation
+# Usage: `ss <script> <args>`
+
+if [ -z "$TYPEDAI_HOME" ]; then
+  echo "Error: TYPEDAI_HOME is not set."
+  exit 1
+fi
+
+# Check if at least one argument is passed
+if [ $# -lt 1 ]; then
+  echo "Usage: ss <script> [args]"
+  exit 1
+fi
+
+# Capture the first argument as the npm script
+script=$1
+shift # Shift the arguments so $@ contains the remaining args
+
+CWD=$(pwd)
+
+# Load NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Run the npm script with any additional arguments and the filesystem arg
+(
+  cd "$TYPEDAI_HOME"
+  nvm use
+  npm run "$script" -- --fs="${CWD}" "$@"
+)

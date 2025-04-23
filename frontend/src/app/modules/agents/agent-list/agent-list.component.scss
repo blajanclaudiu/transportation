@@ -1,0 +1,55 @@
+.inventory-grid {
+  // Mobile first - Name, State, User Prompt
+  grid-template-columns:
+    40px                    // Checkbox
+    minmax(120px, 200px)    // Name
+    100px                   // State
+    minmax(160px, 1fr);     // User Prompt
+  min-width: 0;
+  gap: 0.5rem;
+
+  // Tablets and up (md) - add Error/Output
+  @screen md {
+    grid-template-columns:
+      40px                    // Checkbox
+      minmax(120px, 200px)    // Name
+      100px                   // State
+      minmax(160px, 1fr)      // User Prompt
+      minmax(160px, 250px);   // Error/Output
+    gap: 1rem;
+  }
+
+  // Desktop and up (lg) - add Type and Cost
+  @screen lg {
+    grid-template-columns:
+      40px                    // Checkbox
+      minmax(120px, 200px)    // Name
+      100px                   // State
+      100px                   // Type
+      minmax(160px, 1fr)      // User Prompt
+      minmax(160px, 250px)    // Error/Output
+      100px;                  // Cost
+    gap: 1rem;
+  }
+
+  // Content cells
+  > div {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.25rem;
+  }
+}
+
+.state-completed {
+  @apply text-green-600;
+}
+
+.state-error {
+  @apply text-red-600;
+}
+
+.state-running {
+  @apply text-blue-600;
+}
